@@ -21,8 +21,8 @@ class Menu
 	public:
 		Menu()
 		{
-			bg_rect.w = 1024;
-			bg_rect.h = 768;
+			bg_rect.w = 800;
+			bg_rect.h = 600;
 			bg_rect.x = 0;
 			bg_rect.y = 0;
 		}
