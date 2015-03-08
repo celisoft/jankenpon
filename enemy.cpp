@@ -1,5 +1,8 @@
 #include "enemy.h"
 
+#include <random>
+#include <chrono>
+
 //Initialize texture
 bool Enemy::load(SDL_Renderer* pRenderer)
 {
@@ -46,7 +49,7 @@ bool Enemy::load(SDL_Renderer* pRenderer)
 }
 
 //Render the texture through given renderer
-void Enemy::render(SDL_Renderer* pRenderer)
+void Enemy::render(SDL_Renderer* pRenderer, bool pDisplayHand)
 {
 	//Render the stress indicator
 	SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -57,14 +60,26 @@ void Enemy::render(SDL_Renderer* pRenderer)
 	stress_rect.w = stresspoints*10;
 	SDL_RenderFillRect(pRenderer, &stress_rect);
 
-	SDL_RenderCopyEx(pRenderer, enemy_texture, &sprite_rect, &enemy_rect, 180, nullptr, SDL_FLIP_NONE);
+	if(pDisplayHand)
+	{
+		SDL_RenderCopyEx(pRenderer, enemy_texture, &sprite_rect, &enemy_rect, 180, nullptr, SDL_FLIP_NONE);
+	}
+}
+
+//Make random choice
+int Enemy::make_random_choice()
+{
+	unsigned lSeed = chrono::system_clock::now().time_since_epoch().count();
+	default_random_engine rand_generator(lSeed);
+	uniform_int_distribution<int> distribution(0, 2);
+	return distribution(rand_generator)*200;
 }
 
 //Increase stress (setter)
 void Enemy::stress_up()
 {
-	stresspoints += 5;
-	if(stresspoints > 10)
+	stresspoints += 2;
+	if(stresspoints >= 10)
 	{
 		is_overstress = true;
 	}
@@ -73,8 +88,8 @@ void Enemy::stress_up()
 //Decrease stress (setter)
 void Enemy::stress_down()
 {
-	if(stresspoints >=2)
+	if(stresspoints >=1)
 	{
-		stresspoints -= 2;
+		stresspoints -= 1;
 	}
 }

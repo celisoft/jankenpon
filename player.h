@@ -71,8 +71,17 @@ class Player
 		//Initialize texture
 		bool load(SDL_Renderer* pRenderer);
 
+		//Set the hand sprite
+		void set_hand(int pHand){sprite_rect.x = pHand*200;}
+
+		//Get hand
+		int get_hand(){return sprite_rect.x/200;}
+
 		//Getter for life_point
 		int get_stresspoints(){return stresspoints;}
+
+		//Return true if the player is too stressed
+		bool is_overstressed(){return is_overstress;}
 
 		//Increase stress
 		void stress_up();
@@ -81,6 +90,6 @@ class Player
 		void stress_down();
 
 		//Render the texture through given renderer
-		void render(SDL_Renderer* pRenderer);
+		void render(SDL_Renderer* pRenderer, bool pDisplayHand);
 };
 #endif

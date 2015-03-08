@@ -46,7 +46,7 @@ class Enemy
 		{
 			spritesheet_path = pSpritePath;
 			font_path = pFontPath;
-			
+
 			sprite_rect.w = 200;
 			sprite_rect.h = 200;
 			sprite_rect.x = HAND_ROCK;
@@ -66,14 +66,25 @@ class Enemy
 			stress_rect.h = stress_border_rect.h-2;
 			stress_rect.x = stress_border_rect.x+1;
 			stress_rect.y = stress_border_rect.y+1;
-
 		}
 
 		//Initialize texture
 		bool load(SDL_Renderer* pRenderer);
 
+		//Set the hand sprite
+		void set_hand(){sprite_rect.x = make_random_choice();}
+
+		//Get hand
+		int get_hand(){return sprite_rect.x/200;}
+		
+		//Make a random choice	
+		int make_random_choice();
+		
 		//Getter for life_point
 		int get_stresspoints(){return stresspoints;}
+
+		//Return true if the player is too stressed
+		bool is_overstressed(){return is_overstress;}
 
 		//Increase stress
 		void stress_up();
@@ -82,6 +93,6 @@ class Enemy
 		void stress_down();
 
 		//Render the texture through given renderer
-		void render(SDL_Renderer* pRenderer);
+		void render(SDL_Renderer* pRenderer, bool pDisplayHand);
 };
 #endif

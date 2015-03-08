@@ -64,8 +64,8 @@ class Box
 		//Display
 		void display(SDL_Renderer* pRenderer);
 
-		//Event dispatcher
-		void on_event(SDL_Event* pEvent);	
+		//Dispose box memory
+		void dispose();
 };
 
 #endif

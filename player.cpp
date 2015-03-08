@@ -47,7 +47,7 @@ bool Player::load(SDL_Renderer* pRenderer)
 }
 
 //Render the texture through given renderer
-void Player::render(SDL_Renderer* pRenderer)
+void Player::render(SDL_Renderer* pRenderer, bool pDisplayHand)
 {
 	//Render the stress indicator
 	SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -59,14 +59,17 @@ void Player::render(SDL_Renderer* pRenderer)
 	SDL_RenderFillRect(pRenderer, &stress_rect);
 
 	//Render the hand
-	SDL_RenderCopy(pRenderer, player_texture, &sprite_rect, &player_rect);
+	if(pDisplayHand)
+	{
+		SDL_RenderCopy(pRenderer, player_texture, &sprite_rect, &player_rect);
+	}
 }
 
 //Increase stress (setter)
 void Player::stress_up()
 {
-	stresspoints += 5;
-	if(stresspoints > 10)
+	stresspoints += 2;
+	if(stresspoints >= 10)
 	{
 		is_overstress = true;
 	}
@@ -75,8 +78,8 @@ void Player::stress_up()
 //Decrease stress (setter)
 void Player::stress_down()
 {
-	if(stresspoints >=2)
+	if(stresspoints >=1)
 	{
-		stresspoints -= 2;
+		stresspoints -= 1;
 	}
 }

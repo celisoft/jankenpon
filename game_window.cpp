@@ -29,9 +29,6 @@ bool GameWindow::init()
 		return false;
 	}
 
-	//SDL_SetWindowIcon(display, icon);
-	//SDL_FreeSurface(icon);	
-
 	//Create the renderer
 	renderer = SDL_CreateRenderer(display, -1, 0);
 	if(renderer == nullptr)
@@ -72,16 +69,16 @@ bool GameWindow::run()
 	while(is_running)
 	{
 		SDL_RenderClear(renderer);
-		
+	
 		if(!is_playing)
 		{
 			menu.display(renderer);
 		}
 		else
 		{
-			is_playing = game.display(renderer);			
+			is_running = game.display(renderer);		
 		}
-		
+
 		if(SDL_PollEvent(&lEvent))
 		{
 			on_event(&lEvent);
@@ -94,13 +91,14 @@ bool GameWindow::run()
 				game.on_event(&lEvent);
 			}
 		}
-	
+
 		SDL_RenderPresent(renderer);
 	
 		//Slow down cycles
 		SDL_Delay(16);
 	}
 
+	std::cout << "Exiting ..." << std::endl;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(display);
 	TTF_Quit();
