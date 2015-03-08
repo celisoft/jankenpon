@@ -32,14 +32,11 @@ bool Game::load(SDL_Renderer* pRenderer)
 	player = Player(asset_path + "hand_sheet.png");
 	player.load(pRenderer);
 
-	//SDL_Surface* lHandSurface = IMG_Load((asset_path + "hand_sheet.png").c_str());
-	//hand_texture = SDL_CreateTextureFromSurface(pRenderer, lHandSurface);
-	//if(hand_texture <= 0)
-	//{
-	//	return false;
-	//}
-	//SDL_FreeSurface(lHandSurface);	
+	//Init enemy
+	enemy = Enemy(asset_path + "hand_sheet.png");
+	enemy.load(pRenderer);
 
+	//TODO remove
 	box = Box(asset_path + "fonts/FreeMono.ttf", 798, 128, 0, 471, intro_txt);
 
 	return true;	
@@ -50,7 +47,7 @@ bool Game::display(SDL_Renderer* pRenderer)
 {
 	SDL_RenderCopy(pRenderer, bg_texture, &bg_rect, &bg_rect);
 	player.render(pRenderer);
-	//SDL_RenderCopy(pRenderer, hand_texture, &hsprite_rect, &hand_rect);
+	enemy.render(pRenderer);
 	box.display(pRenderer);
 	return true;
 }
