@@ -58,6 +58,9 @@ class Box
 			border_int_rect.y = pY+5;
 		}
 
+		//Update the box content
+		void update_text(SDL_Renderer* pRenderer, string pText);
+
 		//Display
 		void display(SDL_Renderer* pRenderer);
 

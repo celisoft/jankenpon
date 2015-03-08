@@ -34,11 +34,10 @@ bool Game::load(SDL_Renderer* pRenderer)
 
 	//Init enemy
 	enemy = Enemy(asset_path + "hand_sheet.png", asset_path + "fonts/FreeMono.ttf");
-
 	enemy.load(pRenderer);
 
 	//TODO remove
-	box = Box(asset_path + "fonts/FreeMono.ttf", 798, 128, 0, 471, intro_txt);
+	box = Box(asset_path + "fonts/FreeMono.ttf", 798, 128, 0, 471, intro_txt_0);
 
 	return true;	
 }
@@ -47,17 +46,49 @@ bool Game::load(SDL_Renderer* pRenderer)
 bool Game::display(SDL_Renderer* pRenderer)
 {
 	SDL_RenderCopy(pRenderer, bg_texture, &bg_rect, &bg_rect);
-	player.render(pRenderer);
-	enemy.render(pRenderer);
 
+	switch(current_phase)
+	{
+		case PHASE_INTRO_0:
+			box.display(pRenderer);
+			break;
+		case PHASE_INTRO_1:
+			box.update_text(pRenderer, intro_txt_1);
+			box.display(pRenderer);
+			break;
+		case PHASE_INTRO_2:
+			box.update_text(pRenderer, intro_txt_2);
+			box.display(pRenderer);
+			break;
+		case PHASE_GAME_CHOICE:
+			box.update_text(pRenderer, choice_txt);
+			box.display(pRenderer);
+			break;
+		case PHASE_GAME_RESULT:
+			player.render(pRenderer);
+			enemy.render(pRenderer);
+			break;
+	}
 
-
-	box.display(pRenderer);
 	return true;
 }
 
 //Event dispatcher
 void Game::on_event(SDL_Event* pEvent)
 {
-
+	if(current_phase != PHASE_GAME_CHOICE)
+	{
+		if(pEvent->type == SDL_KEYDOWN)
+		{
+			if(pEvent->key.keysym.sym == SDLK_SPACE)
+			{
+				current_phase++;
+			}
+		}	
+	}
+	else
+	{
+		
+	}
+	
 }

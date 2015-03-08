@@ -24,16 +24,48 @@ void Box::load(SDL_Renderer* pRenderer)
 	int lHeight{0};
 	SDL_QueryTexture(txt_texture, nullptr, nullptr, &lWidth, &lHeight);
 
-		txt_rect.w = lWidth;
-		txt_rect.h = lHeight;
-		txt_rect.x = 0;
-		txt_rect.y = 0;
+	txt_rect.w = lWidth;
+	txt_rect.h = lHeight;
+	txt_rect.x = 0;
+	txt_rect.y = 0;
 
-		txt_pos.w = lWidth;
-		txt_pos.h = lHeight;
-		txt_pos.x = border_int_rect.x + 10;
-		txt_pos.y = border_int_rect.y + 10;
+	txt_pos.w = lWidth;
+	txt_pos.h = lHeight;
+	txt_pos.x = border_int_rect.x + 10;
+	txt_pos.y = border_int_rect.y + 10;
 }	
+
+void Box::update_text(SDL_Renderer* pRenderer, string pText)
+{
+	txt_font = TTF_OpenFont(font_path.c_str(), 24);
+	if(!txt_font)
+	{
+		is_load = false;
+	}
+	
+	SDL_Surface* txt_image = TTF_RenderText_Blended_Wrapped(txt_font, pText.c_str(), txt_color, border_int_rect.w - 5);
+	txt_texture = SDL_CreateTextureFromSurface(pRenderer, txt_image);
+       	if(txt_texture <= 0)
+	{
+		is_load = false;
+	}
+	SDL_FreeSurface(txt_image);
+	TTF_CloseFont(txt_font);
+
+	int lWidth{0};
+	int lHeight{0};
+	SDL_QueryTexture(txt_texture, nullptr, nullptr, &lWidth, &lHeight);
+
+	txt_rect.w = lWidth;
+	txt_rect.h = lHeight;
+	txt_rect.x = 0;
+	txt_rect.y = 0;
+
+	txt_pos.w = lWidth;
+	txt_pos.h = lHeight;
+	txt_pos.x = border_int_rect.x + 10;
+	txt_pos.y = border_int_rect.y + 10;
+}
 
 //Display the current level
 void Box::display(SDL_Renderer* pRenderer)
