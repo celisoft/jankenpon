@@ -93,3 +93,9 @@ void Enemy::stress_down()
 		stresspoints -= 1;
 	}
 }
+
+void Enemy::dispose()
+{
+	SDL_DestroyTexture(enemy_texture);
+	SDL_DestroyTexture(txt_texture);
+}

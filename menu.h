@@ -35,6 +35,9 @@ class Menu
 
 		//On event
 		bool check_event(SDL_Event* pEvent);
+
+		//Dispose
+		void dispose();
 };
 
 #endif

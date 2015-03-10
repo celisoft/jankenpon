@@ -94,5 +94,8 @@ class Enemy
 
 		//Render the texture through given renderer
 		void render(SDL_Renderer* pRenderer, bool pDisplayHand);
+
+		//Cleanup textures
+		void dispose();
 };
 #endif

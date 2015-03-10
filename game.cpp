@@ -179,6 +179,9 @@ bool Game::display(SDL_Renderer* pRenderer)
 
 			break;
 		default:
+			player.dispose();
+			enemy.dispose();
+			box.dispose();
 			return false;
 	}
 

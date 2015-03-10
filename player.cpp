@@ -83,3 +83,9 @@ void Player::stress_down()
 		stresspoints -= 1;
 	}
 }
+
+void Player::dispose()
+{
+	SDL_DestroyTexture(player_texture);
+	SDL_DestroyTexture(txt_texture);
+}

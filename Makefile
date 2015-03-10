@@ -10,13 +10,13 @@ all: clean game
 
 #Create the executable file
 game : complex_components
-	$(CC) -o $(EXEC) $(LIBS) $(OBJ_FILES) 
+	$(CC) -g -o $(EXEC) $(LIBS) $(OBJ_FILES) 
 
 complex_components: basic_components
-	$(CC) -c $(FLAGS) main.cpp game_window.cpp menu.cpp game.cpp 
+	$(CC) -g -c $(FLAGS) main.cpp game_window.cpp menu.cpp game.cpp 
 
 basic_components:
-	$(CC) -c $(FLAGS) box.cpp player.cpp enemy.cpp
+	$(CC) -g -c $(FLAGS) box.cpp player.cpp enemy.cpp
 
 clean: 
 	rm -f *.o $(EXEC)

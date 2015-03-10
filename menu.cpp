@@ -34,4 +34,9 @@ bool Menu::check_event(SDL_Event* pEvent)
 			break;
 	}
 	return ret_val;
-}	
+}
+
+void Menu::dispose()
+{
+	SDL_DestroyTexture(bg_texture);
+}
